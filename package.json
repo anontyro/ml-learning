@@ -1,0 +1,27 @@
+{
+  "name": "agent-report-reader",
+  "version": "1.0.0",
+  "engines": {
+    "node": "^22.0.0"
+  },
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/community": "^1.1.22",
+    "@langchain/core": "^1.1.31",
+    "@langchain/ollama": "^1.2.6",
+    "@types/node": "^25.4.0",
+    "chromadb": "^3.3.2",
+    "langchain": "^1.2.30",
+    "mammoth": "^1.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
