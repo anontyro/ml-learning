@@ -11,3 +11,20 @@ const COLLECTION_NAME = "weekly-updates";
 
 const embeddings = new OllamaEmbeddings({ model: "nomic-embed-text" });
 const llm = new ChatOllama({ model: "llama3", temperature: 0.7 });
+
+const ingestDocuments = async (collectionName: string, url: string) => {
+  console.log("📂 Loading documents from ./docs...");
+
+  const loader = new DocxLoader("./docs");
+  const docs = await loader.load();
+
+  console.log(`✅ Loaded ${docs.length} documents.`);
+};
+
+async function main() {
+  try {
+    const vectorStore = await ingestDocuments(COLLECTION_NAME, CHROMA_URL);
+  } catch (error) {
+    console.error("❌ Error occurred:", error);
+  }
+}
