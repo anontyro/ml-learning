@@ -9,7 +9,6 @@ import { readdir } from "fs/promises";
 import { join } from "path";
 import * as crypto from "crypto";
 import * as fs from "fs";
-import * as path from "path";
 import { Document } from "@langchain/core/documents";
 
 const CHROMA_URL = "http://localhost:8000";
@@ -68,6 +67,13 @@ const ingestDocuments = async (
 
   const docs = await readDocs();
 
+  console.log("🔢 Generating embeddings for documents...");
+  const testText = docs[0]?.pageContent?.slice(0, 50);
+  const testEmbedding = await embeddings.embedDocuments([testText || "test"]);
+  console.log(
+    `✅ Embedding generated (vector size: ${testEmbedding[0]?.length} dimensions)`,
+  );
+
   const vectorStore = new Chroma(embeddings, {
     collectionName,
     url,
@@ -117,7 +123,7 @@ const generateReport = async (vectorStore: Chroma) => {
     {
       context: async (input: { query: string }) => {
         const docs = await retriever.invoke(input.query);
-        return docs.map(d => d.pageContent).join("\n\n");
+        return docs.map((d) => d.pageContent).join("\n\n");
       },
     },
     prompt,
