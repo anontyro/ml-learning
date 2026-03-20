@@ -7,9 +7,9 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "ingest": "npx ts-node src/ingest.ts",
-    "generate": "npx ts-node src/generate.ts",
-    "start": "npm run ingest && npm run generate",
+    "ingest": "tsx src/ingest.ts",
+    "generate": "tsx src/generate.ts",
+    "start": "tsx index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
