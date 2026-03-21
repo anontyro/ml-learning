@@ -1,0 +1,23 @@
+{"level":"info","message":"❌ Docs folder not found. Skipping ingestion."}
+{"level":"info","message":"❌ Docs folder not found. Skipping ingestion."}
+{"level":"info","message":"📂 Loading documents from /Users/alexwilkinson/Documents/coding/alex/agent-report-reader/packages/ai-agent/docs..."}
+{"level":"info","message":"📄 Loading: Test doc 1.docx"}
+{"level":"info","message":"📄 Loading: Test doc 2.docx"}
+{"level":"info","message":"✅ Loaded 2 documents."}
+{"level":"info","message":"🔢 Generating embeddings for documents..."}
+{"level":"info","message":"✅ Embedding generated (vector size: 768 dimensions)"}
+{"level":"info","message":"💾 Documents synced to ChromaDB (New/Updated only)."}
+{"level":"info","message":"📂 Loading documents from /Users/alexwilkinson/Documents/coding/alex/agent-report-reader/packages/ai-agent/docs..."}
+{"level":"info","message":"📄 Loading: Test doc 1.docx"}
+{"level":"info","message":"📄 Loading: Test doc 2.docx"}
+{"level":"info","message":"✅ Loaded 2 documents."}
+{"level":"info","message":"🔢 Generating embeddings for documents..."}
+{"level":"info","message":"✅ Embedding generated (vector size: 768 dimensions)"}
+{"level":"info","message":"💾 Documents synced to ChromaDB (New/Updated only)."}
+{"level":"info","message":"📂 Loading documents from /Users/alexwilkinson/Documents/coding/alex/agent-report-reader/packages/ai-agent/docs..."}
+{"level":"info","message":"📄 Loading: Test doc 1.docx"}
+{"level":"info","message":"📄 Loading: Test doc 2.docx"}
+{"level":"info","message":"✅ Loaded 2 documents."}
+{"level":"info","message":"🔢 Generating embeddings for documents..."}
+{"level":"info","message":"✅ Embedding generated (vector size: 768 dimensions)"}
+{"level":"info","message":"💾 Documents synced to ChromaDB (New/Updated only)."}

@@ -4,13 +4,13 @@ import { readdir } from "fs/promises";
 import { DocxLoader } from "@langchain/community/document_loaders/fs/docx";
 import { Chroma } from "@langchain/community/vectorstores/chroma";
 import { Document } from "@langchain/core/documents";
-import { CONFIG } from "./config.js";
+import { CONFIG } from "./config";
 import { join } from "path";
 import {
   createEmbeddings,
   createVectorStore,
-} from "./utils/modelSetup/modelSetup.js";
-import logger from "./utils/logger/logger.js";
+} from "./utils/modelSetup/modelSetup";
+import logger from "./utils/logger/logger";
 import "@dotenvx/dotenvx/config";
 
 const generateDocumentId = (content: string, filePath: string): string => {
@@ -84,8 +84,7 @@ const runIngestion = async (): Promise<Chroma | null> => {
 // Export for use in NestJS
 export { runIngestion };
 
-// Run directly if executed as main script
-const isMainModule = import.meta.url === `file://${process.argv[1]}`;
-if (isMainModule) {
+// Run directly if executed as main script (CommonJS compatible)
+if (require.main === module) {
   runIngestion().catch(console.error);
 }

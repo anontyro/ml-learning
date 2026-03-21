@@ -1,36 +1,19 @@
 {
   "name": "agent-report-reader",
   "version": "1.0.0",
-  "engines": {
-    "node": "^22.0.0"
-  },
-  "type": "module",
-  "main": "dist/index.js",
+  "private": true,
   "scripts": {
-    "ingest": "tsx src/ingest.ts",
-    "generate": "tsx src/generate.ts",
-    "start": "tsx index.ts",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@dotenvx/dotenvx": "^1.57.0",
-    "@langchain/community": "^1.1.22",
-    "@langchain/core": "^1.1.31",
-    "@langchain/ollama": "^1.2.6",
-    "@types/node": "^25.4.0",
-    "chromadb": "^3.3.2",
-    "langchain": "^1.2.30",
-    "mammoth": "^1.11.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "winston": "^3.19.0"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "start": "turbo run start",
+    "clean": "turbo run clean",
+    "lint": "turbo run lint"
   },
   "devDependencies": {
-    "tsx": "^4.21.0"
+    "turbo": "^2.0.0"
+  },
+  "packageManager": "pnpm@8.5.1",
+  "engines": {
+    "node": "^22.0.0"
   }
 }

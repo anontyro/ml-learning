@@ -1,0 +1,18 @@
+# Compiled output (should only exist in dist/)
+src/**/*.js
+src/**/*.d.ts
+src/**/*.js.map
+*.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Environment files
+.env
+.env.local

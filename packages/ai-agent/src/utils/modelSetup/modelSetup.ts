@@ -1,4 +1,4 @@
-import { CONFIG } from "../../config.js";
+import { CONFIG } from "../../config";
 import { ChatOllama, OllamaEmbeddings } from "@langchain/ollama";
 import { Chroma } from "@langchain/community/vectorstores/chroma";
 
