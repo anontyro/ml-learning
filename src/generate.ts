@@ -5,6 +5,7 @@ import defaultVectorStore, {
   createChatModel,
 } from "./utils/modelSetup/modelSetup.js";
 import logger from "./utils/logger/logger.js";
+import "@dotenvx/dotenvx/config";
 
 export const runGeneration = async () => {
   logger.info("\n🤖 Agent is analyzing themes...");

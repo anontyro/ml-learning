@@ -11,6 +11,7 @@ import {
   createVectorStore,
 } from "./utils/modelSetup/modelSetup.js";
 import logger from "./utils/logger/logger.js";
+import "@dotenvx/dotenvx/config";
 
 const generateDocumentId = (content: string, filePath: string): string => {
   const hash = crypto.createHash("sha256");
@@ -80,4 +81,11 @@ const runIngestion = async (): Promise<Chroma | null> => {
   return vectorStore;
 };
 
-runIngestion().catch(console.error);
+// Export for use in NestJS
+export { runIngestion };
+
+// Run directly if executed as main script
+const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
+  runIngestion().catch(console.error);
+}
