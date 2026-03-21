@@ -4,9 +4,10 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 import defaultVectorStore, {
   createChatModel,
 } from "./utils/modelSetup/modelSetup.js";
+import logger from "./utils/logger/logger.js";
 
 export const runGeneration = async () => {
-  console.log("\n🤖 Agent is analyzing themes...");
+  logger.info("\n🤖 Agent is analyzing themes...");
 
   const vectorStore = defaultVectorStore();
   const llm = createChatModel();
@@ -55,8 +56,10 @@ export const runGeneration = async () => {
   ]);
 
   const report = await chain.invoke({ query: "weekly project updates status" });
-  console.log("\n📋 GENERATED REPORT:\n");
-  console.log(report);
+
+  logger.info("\n📋 GENERATED REPORT:\n");
+  logger.info(report);
+
   return report;
 };
 

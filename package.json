@@ -26,7 +26,8 @@
     "langchain": "^1.2.30",
     "mammoth": "^1.11.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "tsx": "^4.21.0"
