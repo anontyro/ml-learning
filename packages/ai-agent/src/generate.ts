@@ -4,10 +4,11 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 import defaultVectorStore, {
   createChatModel,
 } from "./utils/modelSetup/modelSetup.js";
+import { getReportPrompt } from "./utils/prompt/index.js";
 import logger from "./utils/logger/logger.js";
 import "@dotenvx/dotenvx/config";
 
-export const runGeneration = async () => {
+export const runGeneration = async (promptVersion?: string) => {
   logger.info("\n🤖 Agent is analyzing themes...");
 
   const vectorStore = defaultVectorStore();
@@ -15,34 +16,11 @@ export const runGeneration = async () => {
 
   const retriever = vectorStore.asRetriever({ k: 5 });
 
-  const prompt = PromptTemplate.fromTemplate(`
-    You are an expert Project Manager.
-    You have been given several weekly update documents.
+  // Load prompt from versioned prompt file
+  const promptData = await getReportPrompt(promptVersion || "latest");
+  logger.info(`📝 Using prompt: ${promptData.name} v${promptData.version}`);
 
-    Context from documents:
-    {context}
-
-    Task:
-    1. Identify common themes across these updates.
-    2. Identify shared blockers.
-    3. Generate a consolidated draft report using the template below.
-
-    Template:
-    ---
-    WEEKLY CONSOLIDATED REPORT
-    --------------------------
-    📌 Key Themes:
-    [List themes]
-
-    🚧 Shared Blockers:
-    [List blockers]
-
-    📝 Draft Summary:
-    [Write a paragraph summary]
-    ---
-
-    Report:
-  `);
+  const prompt = PromptTemplate.fromTemplate(promptData.template);
 
   const chain = RunnableSequence.from([
     {

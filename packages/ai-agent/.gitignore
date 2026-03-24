@@ -16,3 +16,6 @@ node_modules/
 # Environment files
 .env
 .env.local
+
+# Prompt build artifacts (prompts source is tracked)
+dist/prompts/

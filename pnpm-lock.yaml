@@ -119,6 +119,9 @@ importers:
       winston:
         specifier: ^3.19.0
         version: 3.19.0
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@types/node':
         specifier: ^25.4.0
@@ -528,7 +531,7 @@ packages:
       - encoding
     dev: false
 
-  /@browserbasehq/stagehand@1.14.0(@playwright/test@1.58.2)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@6.32.0)(zod@3.25.76):
+  /@browserbasehq/stagehand@1.14.0(@playwright/test@1.58.2)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@6.32.0)(zod@4.3.6):
     resolution: {integrity: sha512-Hi/EzgMFWz+FKyepxHTrqfTPjpsuBS4zRy3e9sbMpBgLPv+9c0R+YZEvS7Bw4mTS66QtvvURRT6zgDGFotthVQ==}
     peerDependencies:
       '@playwright/test': ^1.42.1
@@ -542,10 +545,10 @@ packages:
       '@playwright/test': 1.58.2
       deepmerge: 4.3.1
       dotenv: 16.6.1
-      openai: 6.32.0(zod@3.25.76)
+      openai: 6.32.0(zod@4.3.6)
       ws: 8.20.0
-      zod: 3.25.76
-      zod-to-json-schema: 3.25.1(zod@3.25.76)
+      zod: 4.3.6
+      zod-to-json-schema: 3.25.1(zod@4.3.6)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -1587,7 +1590,7 @@ packages:
       youtubei.js:
         optional: true
     dependencies:
-      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.58.2)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@6.32.0)(zod@3.25.76)
+      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.58.2)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@6.32.0)(zod@4.3.6)
       '@ibm-cloud/watsonx-ai': 1.7.10(typescript@5.9.3)
       '@langchain/classic': 1.0.22(@langchain/core@1.1.31)(openai@6.32.0)
       '@langchain/core': 1.1.31(openai@6.32.0)
@@ -1600,7 +1603,7 @@ packages:
       langsmith: 0.5.11(openai@6.32.0)
       mammoth: 1.11.0
       math-expression-evaluator: 2.0.7
-      openai: 6.32.0(zod@3.25.76)
+      openai: 6.32.0(zod@4.3.6)
       uuid: 10.0.0
       zod: 4.3.6
     transitivePeerDependencies:
@@ -5140,7 +5143,7 @@ packages:
       '@types/uuid': 10.0.0
       chalk: 5.6.2
       console-table-printer: 2.15.0
-      openai: 6.32.0(zod@3.25.76)
+      openai: 6.32.0(zod@4.3.6)
       p-queue: 6.6.2
       semver: 7.7.4
       uuid: 10.0.0
@@ -5549,21 +5552,6 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       mimic-fn: 2.1.0
-
-  /openai@6.32.0(zod@3.25.76):
-    resolution: {integrity: sha512-j3k+BjydAf8yQlcOI7WUQMQTbbF5GEIMAE2iZYCOzwwB3S2pCheaWYp+XZRNAch4jWVc52PMDGRRjutao3lLCg==}
-    hasBin: true
-    peerDependencies:
-      ws: ^8.18.0
-      zod: ^3.25 || ^4.0
-    peerDependenciesMeta:
-      ws:
-        optional: true
-      zod:
-        optional: true
-    dependencies:
-      zod: 3.25.76
-    dev: false
 
   /openai@6.32.0(zod@4.3.6):
     resolution: {integrity: sha512-j3k+BjydAf8yQlcOI7WUQMQTbbF5GEIMAE2iZYCOzwwB3S2pCheaWYp+XZRNAch4jWVc52PMDGRRjutao3lLCg==}
@@ -7167,16 +7155,12 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod-to-json-schema@3.25.1(zod@3.25.76):
+  /zod-to-json-schema@3.25.1(zod@4.3.6):
     resolution: {integrity: sha512-pM/SU9d3YAggzi6MtR4h7ruuQlqKtad8e9S0fmxcMi+ueAK5Korys/aWcV9LIIHTVbj01NdzxcnXSN+O74ZIVA==}
     peerDependencies:
       zod: ^3.25 || ^4
     dependencies:
-      zod: 3.25.76
-    dev: false
-
-  /zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+      zod: 4.3.6
     dev: false
 
   /zod@4.3.6:

@@ -24,6 +24,11 @@
       "types": "./dist/config.d.ts",
       "require": "./dist/config.js",
       "import": "./dist/config.js"
+    },
+    "./prompts": {
+      "types": "./dist/utils/prompt/index.d.ts",
+      "require": "./dist/utils/prompt/index.js",
+      "import": "./dist/utils/prompt/index.js"
     }
   },
   "scripts": {
@@ -42,7 +47,8 @@
     "chromadb": "^3.3.2",
     "langchain": "^1.2.30",
     "mammoth": "^1.11.0",
-    "winston": "^3.19.0"
+    "winston": "^3.19.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.4.0",

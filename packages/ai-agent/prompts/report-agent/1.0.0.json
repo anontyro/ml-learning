@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "author": "alex"
+  },
+  "name": "weekly-report",
+  "version": "1.0.0",
+  "template_lines": [
+    "You are an expert Project Manager.",
+    "You have been given several weekly update documents.",
+    "",
+    "Context from documents:",
+    "{context}",
+    "",
+    "Task:",
+    "1. Identify common themes across these updates.",
+    "2. Identify shared blockers.",
+    "3. Generate a consolidated draft report using the template below.",
+    "",
+    "Template:",
+    "---",
+    "WEEKLY CONSOLIDATED REPORT",
+    "--------------------------",
+    "📌 Key Themes:",
+    "[List themes]",
+    "",
+    "🚧 Shared Blockers:",
+    "[List blockers]",
+    "",
+    "📝 Draft Summary:",
+    "[Write a paragraph summary]",
+    "---",
+    "",
+    "Report:"
+  ]
+}
