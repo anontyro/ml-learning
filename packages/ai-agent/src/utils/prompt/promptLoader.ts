@@ -1,6 +1,7 @@
 import { readFile } from "fs/promises";
-import { join, resolve } from "path";
+import { join } from "path";
 import { z } from "zod";
+import logger from "../logger/logger";
 
 const PromptSchema = z.object({
   name: z.string(),
@@ -38,16 +39,24 @@ export async function loadPrompt(
   version: "latest" | "stable" | "canary" | string = "latest",
 ): Promise<Prompt> {
   try {
+    logger.debug(`Prompt name ${promptName}`, `Prompt version ${version}`);
+
     const PROMPT_DIR = getPromptDir();
     const manifestPath = join(PROMPT_DIR, promptName, "manifest.json");
     const manifestContent = await readFile(manifestPath, "utf-8");
     const manifest = JSON.parse(manifestContent);
+
+    logger.debug(`Reading prompt manifest from ${manifestPath}`);
+    logger.debug("manifest", manifest);
 
     // Resolve version alias or use provided version
     let resolvedVersion: string;
     if (version === "latest" || version === "stable" || version === "canary") {
       resolvedVersion = manifest[version];
       if (!resolvedVersion) {
+        logger.error(
+          `Version alias ${version} is not present in manifest for ${promptName}`,
+        );
         throw new Error(
           `Version alias "${version}" not found in manifest for prompt "${promptName}"`,
         );
@@ -60,6 +69,8 @@ export async function loadPrompt(
     const rawContent = await readFile(promptPath, "utf-8");
     const raw = JSON.parse(rawContent);
 
+    logger.debug(`Prompt path: ${promptPath}`);
+
     // Join template lines into single string
     const template = raw.template_lines?.join("\n") || raw.template || "";
 
@@ -69,6 +80,7 @@ export async function loadPrompt(
       version: resolvedVersion,
     });
   } catch (err) {
+    logger.error("an error occured whilst loading the prompt", err);
     if (err instanceof Error) {
       throw new Error(`Failed to load prompt "${promptName}": ${err.message}`);
     }
