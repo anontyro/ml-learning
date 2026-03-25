@@ -18,9 +18,10 @@ export const runGeneration = async (promptVersion?: string) => {
 
   // Load prompt from versioned prompt file
   const promptData = await getReportPrompt(promptVersion || "latest");
-  logger.info(`📝 Using prompt: ${promptData.name} v${promptData.version}`);
+  logger.debug(`📝 Using prompt: ${promptData.name} v${promptData.version}`);
 
   const prompt = PromptTemplate.fromTemplate(promptData.template);
+  const parser = new StringOutputParser();
 
   const chain = RunnableSequence.from([
     {
@@ -31,7 +32,7 @@ export const runGeneration = async (promptVersion?: string) => {
     },
     prompt,
     llm,
-    new StringOutputParser(),
+    parser,
   ]);
 
   const report = await chain.invoke({ query: "weekly project updates status" });
@@ -42,4 +43,4 @@ export const runGeneration = async (promptVersion?: string) => {
   return report;
 };
 
-runGeneration().catch(console.error);
+runGeneration().catch(logger.error);

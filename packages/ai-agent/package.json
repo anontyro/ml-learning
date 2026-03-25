@@ -37,7 +37,8 @@
     "clean": "rm -rf dist",
     "start": "tsx src/index.ts",
     "ingest": "tsx src/ingest.ts",
-    "generate": "tsx src/generate.ts"
+    "generate": "tsx src/generate.ts",
+    "extract": "tsx src/extract.ts"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.57.0",

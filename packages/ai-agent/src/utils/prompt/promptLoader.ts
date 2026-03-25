@@ -7,7 +7,7 @@ const PromptSchema = z.object({
   name: z.string(),
   version: z.string(),
   template: z.string(),
-  schema: z.object().optional,
+  schema: z.object().optional(),
   meta: z
     .object({
       author: z.string().optional(),
