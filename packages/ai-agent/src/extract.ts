@@ -1,6 +1,6 @@
 import { PromptTemplate } from "@langchain/core/prompts";
-import { JsonOutputParser } from "@langchain/core/output_parsers";
 import { RunnableSequence } from "@langchain/core/runnables";
+import { JsonOutputParser } from "@langchain/core/output_parsers";
 import logger from "./utils/logger/logger.js";
 import defaultVectorStore, {
   createChatModel,
@@ -33,12 +33,17 @@ const runExtraction = async (promptVersion = "latest") => {
     parser,
   ]);
 
-  const result = await chain.invoke({ query: "" });
+  const result = await chain.invoke({
+    query: "Extract themes and blockers from the weekly updates",
+  });
 
-  logger.info("\n✅ EXTRACTED DATA:\n");
-  logger.info(result);
+  logger.info("\n✅ EXTRACTED DATA (RAW):\n");
+  logger.info(JSON.stringify(result, null, 2));
 
   return result;
 };
 
-runExtraction().catch(logger.error);
+runExtraction().catch((err) => {
+  logger.error("Full error:", err);
+  console.error("Full error:", err);
+});

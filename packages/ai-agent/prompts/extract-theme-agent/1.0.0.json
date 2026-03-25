@@ -9,30 +9,38 @@
     "properties": {
       "themes": {
         "type": "array",
-        "items": { "type": "string" }
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" }
+          },
+          "required": ["name", "description"]
+        }
       },
       "blockers": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "description": {
-              "description": {
-                "type": "string"
-              },
-              "owner": {
-                "type": "string"
-              }
-            }
-          }
+            "name": { "type": "string" },
+            "description": { "type": "string" }
+          },
+          "required": ["name", "description"]
         }
       }
     },
     "required": ["themes", "blockers"]
   },
   "template_lines": [
-    "Analyze the following text. Extract key themes and blockers.",
-    "Text: {context}",
-    "Output ONLY valid JSON."
+    "You are a data extraction agent. Analyze the text and extract themes and blockers into structured JSON.",
+    "",
+    "Requirements:",
+    "- Output ONLY the JSON object",
+    "- No markdown, no code blocks, no backticks, no explanations",
+    "- If no themes or blockers found, return empty arrays",
+    "- Ensure the JSON is complete and valid (all brackets closed)",
+    "",
+    "Text: {context}"
   ]
 }
