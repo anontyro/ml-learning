@@ -6,8 +6,27 @@ import defaultVectorStore, {
   createChatModel,
 } from "./utils/modelSetup/modelSetup";
 import { getExtractThemePrompt } from "./utils/prompt";
+import { z } from "zod";
 
-const runExtraction = async (promptVersion = "latest") => {
+// Define the expected output schema
+const ExtractThemeOutputSchema = z.object({
+  themes: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string(),
+    })
+  ),
+  blockers: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string(),
+    })
+  ),
+});
+
+export type ExtractThemeOutput = z.infer<typeof ExtractThemeOutputSchema>;
+
+const runExtraction = async (promptVersion = "latest"): Promise<ExtractThemeOutput> => {
   logger.info("🔍 Starting Structured Extraction...");
 
   const vectorStore = defaultVectorStore();
@@ -17,7 +36,7 @@ const runExtraction = async (promptVersion = "latest") => {
   logger.debug(`📝 Using prompt: ${promptData.name} v${promptData.version}`);
 
   const prompt = PromptTemplate.fromTemplate(promptData.template);
-  const parser = new JsonOutputParser();
+  const parser = new JsonOutputParser<ExtractThemeOutput>();
 
   const retriever = vectorStore.asRetriever({ k: 5 });
 
@@ -37,10 +56,17 @@ const runExtraction = async (promptVersion = "latest") => {
     query: "Extract themes and blockers from the weekly updates",
   });
 
-  logger.info("\n✅ EXTRACTED DATA (RAW):\n");
+  logger.info("\n📋 RAW LLM OUTPUT:\n");
   logger.info(JSON.stringify(result, null, 2));
 
-  return result;
+  // Validate output against schema
+  const validatedResult = ExtractThemeOutputSchema.parse(result);
+
+  logger.info("\n✅ EXTRACTED DATA:\n");
+  logger.info(JSON.stringify(validatedResult, null, 2));
+
+  return validatedResult;
+  
 };
 
 runExtraction().catch((err) => {
