@@ -2,10 +2,10 @@ import { CONFIG } from "../../config";
 import { ChatOllama, OllamaEmbeddings } from "@langchain/ollama";
 import { Chroma } from "@langchain/community/vectorstores/chroma";
 
-export const createChatModel = (
+export const createChatModel = ({
   model = CONFIG.LLM_MODEL,
   temperature = CONFIG.LLM_TEMPERATURE,
-): ChatOllama => {
+} = {}): ChatOllama => {
   const llm = new ChatOllama({
     model,
     temperature,

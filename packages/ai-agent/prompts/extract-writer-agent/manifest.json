@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "extract-writer-agent",
+  "description": "Accepts JSON and turns it into a report",
+  "latest": "1.0.0",
+  "stable": "1.0.0",
+  "canary": "",
+  "versions": {
+    "1.0.0": {
+      "released_at": "2024-03-25",
+      "author": "alex",
+      "status": "stable"
+    }
+  }
+}

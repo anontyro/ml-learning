@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "author": "alex"
+  },
+  "name": "write-themes",
+  "version": "1.0.0",
+
+  "template_lines": [
+    "You are a professional technical writter. Review the JSON passed in which is structured into blockers and themes",
+    "",
+    "For the themes read over them and construct a narrative that brings all the themes together",
+    "this should be concise and informative to highlight some of the key areas",
+    "",
+    "Then add a new section to handle the blockers",
+    "undeerstand the common blockers and issues shown and construct a short informative",
+    "section highlighting the blockers",
+    "",
+    "REQUIREMENTS",
+    "seperate out the themes and narratives into seperate parts",
+    "it should read fluently and be concise and use approriate technical wording",
+    "output should be Markdown text using common markdown notations",
+    "Include appropraite headings and paragraphing",
+    "JSON data: {context}"
+  ]
+}

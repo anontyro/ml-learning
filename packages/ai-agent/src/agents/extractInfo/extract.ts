@@ -1,11 +1,11 @@
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { JsonOutputParser } from "@langchain/core/output_parsers";
-import logger from "./utils/logger/logger.js";
+import logger from "../../utils/logger/logger.js";
 import defaultVectorStore, {
   createChatModel,
-} from "./utils/modelSetup/modelSetup";
-import { getExtractThemePrompt } from "./utils/prompt";
+} from "../../utils/modelSetup/modelSetup.js";
+import { getExtractThemePrompt } from "../../utils/prompt/index.js";
 import { z } from "zod";
 
 // Define the expected output schema
@@ -14,23 +14,27 @@ const ExtractThemeOutputSchema = z.object({
     z.object({
       name: z.string(),
       description: z.string(),
-    })
+    }),
   ),
   blockers: z.array(
     z.object({
       name: z.string(),
       description: z.string(),
-    })
+    }),
   ),
 });
 
 export type ExtractThemeOutput = z.infer<typeof ExtractThemeOutputSchema>;
 
-const runExtraction = async (promptVersion = "latest"): Promise<ExtractThemeOutput> => {
+export const runExtraction = async (
+  promptVersion = "latest",
+): Promise<ExtractThemeOutput> => {
   logger.info("🔍 Starting Structured Extraction...");
 
   const vectorStore = defaultVectorStore();
-  const llm = createChatModel();
+  const llm = createChatModel({
+    temperature: 0,
+  });
 
   const promptData = await getExtractThemePrompt(promptVersion);
   logger.debug(`📝 Using prompt: ${promptData.name} v${promptData.version}`);
@@ -66,10 +70,4 @@ const runExtraction = async (promptVersion = "latest"): Promise<ExtractThemeOutp
   logger.info(JSON.stringify(validatedResult, null, 2));
 
   return validatedResult;
-  
 };
-
-runExtraction().catch((err) => {
-  logger.error("Full error:", err);
-  console.error("Full error:", err);
-});

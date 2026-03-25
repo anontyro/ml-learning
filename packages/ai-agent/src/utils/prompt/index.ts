@@ -3,6 +3,7 @@ import type { Prompt } from "./promptLoader.js";
 
 const REPORT_PROMPT_NAME = "report-agent";
 const EXTRACT_THEME_PROMPT_NAME = "extract-theme-agent";
+const EXTRACT_THEME_WRITER_PROMPT_NAME = "extract-writer-agent";
 
 export const getReportPrompt = async (
   version: "latest" | "stable" | "canary" | string = "latest",
@@ -14,6 +15,12 @@ export const getExtractThemePrompt = async (
   version: "latest" | "stable" | "canary" | string = "latest",
 ): Promise<Prompt> => {
   return loadPrompt(EXTRACT_THEME_PROMPT_NAME, version);
+};
+
+export const getExtractThemeWriterPrompt = async (
+  version: "latest" | "stable" | "canary" | string = "latest",
+): Promise<Prompt> => {
+  return loadPrompt(EXTRACT_THEME_WRITER_PROMPT_NAME, version);
 };
 
 export { loadPrompt };

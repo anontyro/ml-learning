@@ -3,9 +3,9 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import defaultVectorStore, {
   createChatModel,
-} from "./utils/modelSetup/modelSetup.js";
-import { getReportPrompt } from "./utils/prompt/index.js";
-import logger from "./utils/logger/logger.js";
+} from "../../utils/modelSetup/modelSetup.js";
+import { getReportPrompt } from "../../utils/prompt/index.js";
+import logger from "../../utils/logger/logger.js";
 import "@dotenvx/dotenvx/config";
 
 export const runGeneration = async (promptVersion?: string) => {
@@ -42,5 +42,3 @@ export const runGeneration = async (promptVersion?: string) => {
 
   return report;
 };
-
-runGeneration().catch(logger.error);
