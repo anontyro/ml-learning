@@ -20,6 +20,7 @@
     "it should read fluently and be concise and use approriate technical wording",
     "output should be Markdown text using common markdown notations",
     "Include appropraite headings and paragraphing",
+    "only include the markdown report do not prefix it with other text, the report should be the only part output",
     "JSON data: {context}"
   ]
 }
