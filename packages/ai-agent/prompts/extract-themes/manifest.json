@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "extract-theme-agent",
+  "description": "Extracts themes and blockers into structured JSON",
+  "latest": "1.0.0",
+  "stable": "1.0.0",
+  "canary": "",
+  "versions": {
+    "1.0.0": {
+      "released_at": "2024-03-25",
+      "author": "alex",
+      "status": "stable"
+    }
+  }
+}
