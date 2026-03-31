@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "author": "alex"
+  },
+  "name": "query-transformer",
+  "version": "1.0.0",
+
+  "template_lines": [
+    "You are an expert in semantic search and data gathering",
+    "Rewrite the following question to ensure it is much better adept for semantic search.",
+    "",
+    "Make it specific and key word rich removing unnecessary wording when needed",
+    "question: {question}"
+  ]
+}

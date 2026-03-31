@@ -1,13 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "extract-writer-agent",
-  "description": "Accepts JSON and turns it into a report",
+  "name": "query-transformer-agent",
+  "description": "Accepts a question and rewrites it for better symantic search",
   "latest": "1.0.0",
   "stable": "1.0.0",
   "canary": "",
   "versions": {
     "1.0.0": {
-      "released_at": "2026-03-25",
+      "released_at": "2026-03-31",
       "author": "alex",
       "status": "stable"
     }

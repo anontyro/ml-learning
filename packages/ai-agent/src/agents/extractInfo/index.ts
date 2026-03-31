@@ -4,6 +4,9 @@ import logger from "../../utils/logger/logger";
 import { runExtraction } from "./extract";
 import { runWriter } from "./writer";
 
+const TEST_QUESTION =
+  "what has been the main reason the team have fallen behind? What would be a good path forward to get back on track";
+
 const writeMarkdownToFile = (markdown: string, fileName: string) => {
   const outputPath = path.join(__dirname, "../../../output/reports", fileName);
 
@@ -17,7 +20,7 @@ const writeMarkdownToFile = (markdown: string, fileName: string) => {
 };
 
 const main = async () => {
-  const results = await runExtraction().catch((err) => {
+  const results = await runExtraction(TEST_QUESTION).catch((err) => {
     logger.error("Full error:", err);
 
     throw err;
