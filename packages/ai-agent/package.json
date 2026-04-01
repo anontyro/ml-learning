@@ -41,6 +41,7 @@
     "extract-themes": "tsx src/agents/extractInfo/index.ts"
   },
   "dependencies": {
+    "@repo/utils": "workspace:*",
     "@dotenvx/dotenvx": "^1.57.0",
     "@langchain/community": "^1.1.22",
     "@langchain/core": "^1.1.31",

@@ -7,7 +7,7 @@ const PromptSchema = z.object({
   name: z.string(),
   version: z.string(),
   template: z.string(),
-  schema: z.object().optional(),
+  schema: z.object({}).optional(),
   meta: z
     .object({
       author: z.string().optional(),
@@ -19,38 +19,21 @@ const PromptSchema = z.object({
 
 export type Prompt = z.infer<typeof PromptSchema>;
 
-// Resolve path to prompts directory relative to package root
-// From dist/utils/prompt -> go up 3 levels -> dist -> (root) -> packages/ai-agent/prompts
-const getPromptDir = () => {
-  // In production: __dirname = dist/utils/prompt
-  // In development with tsx: __dirname = src/utils/prompt
-  const isDev = __dirname.includes("/src/");
-  const levelsUp = isDev ? 3 : 2;
-
-  let currentDir = __dirname;
-  for (let i = 0; i < levelsUp; i++) {
-    currentDir = join(currentDir, "..");
-  }
-
-  return join(currentDir, "prompts");
-};
-
 export async function loadPrompt(
   promptName: string,
   version: "latest" | "stable" | "canary" | string = "latest",
+  promptsDir: string,
 ): Promise<Prompt> {
   try {
     logger.debug(`Prompt name ${promptName}`, `Prompt version ${version}`);
 
-    const PROMPT_DIR = getPromptDir();
-    const manifestPath = join(PROMPT_DIR, promptName, "manifest.json");
+    const manifestPath = join(promptsDir, promptName, "manifest.json");
     const manifestContent = await readFile(manifestPath, "utf-8");
     const manifest = JSON.parse(manifestContent);
 
     logger.debug(`Reading prompt manifest from ${manifestPath}`);
     logger.debug("manifest", manifest);
 
-    // Resolve version alias or use provided version
     let resolvedVersion: string;
     if (version === "latest" || version === "stable" || version === "canary") {
       resolvedVersion = manifest[version];
@@ -66,13 +49,12 @@ export async function loadPrompt(
       resolvedVersion = version;
     }
 
-    const promptPath = join(PROMPT_DIR, promptName, `${resolvedVersion}.json`);
+    const promptPath = join(promptsDir, promptName, `${resolvedVersion}.json`);
     const rawContent = await readFile(promptPath, "utf-8");
     const raw = JSON.parse(rawContent);
 
     logger.debug(`Prompt path: ${promptPath}`);
 
-    // Join template lines into single string
     const template = raw.template_lines?.join("\n") || raw.template || "";
 
     return PromptSchema.parse({

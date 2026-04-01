@@ -107,6 +107,9 @@ importers:
       '@langchain/ollama':
         specifier: ^1.2.6
         version: 1.2.6(@langchain/core@1.1.31)
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../shared-packages/utils
       chromadb:
         specifier: ^3.3.2
         version: 3.3.2
@@ -147,12 +150,21 @@ importers:
       '@langchain/ollama':
         specifier: ^1.2.6
         version: 1.2.6(@langchain/core@1.1.31)
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../shared-packages/utils
       chromadb:
         specifier: ^3.3.2
         version: 3.3.2
+      csv-parse:
+        specifier: ^6.2.1
+        version: 6.2.1
       langchain:
         specifier: ^1.2.30
         version: 1.2.30(@langchain/core@1.1.31)(openai@6.32.0)
+      striptags:
+        specifier: ^3.2.0
+        version: 3.2.0
       winston:
         specifier: ^3.19.0
         version: 3.19.0
@@ -163,9 +175,37 @@ importers:
       '@types/node':
         specifier: ^25.4.0
         version: 25.4.0
+      '@types/striptags':
+        specifier: ^3.1.1
+        version: 3.1.1
       tsx:
         specifier: ^4.21.0
         version: 4.21.0
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  shared-packages/utils:
+    dependencies:
+      '@dotenvx/dotenvx':
+        specifier: ^1.57.0
+        version: 1.57.0
+      '@langchain/community':
+        specifier: ^1.1.22
+        version: 1.1.22(@browserbasehq/stagehand@1.14.0)(@ibm-cloud/watsonx-ai@1.7.10)(@langchain/core@1.1.31)(chromadb@3.3.2)(ibm-cloud-sdk-core@5.4.9)(mammoth@1.11.0)(openai@6.32.0)
+      '@langchain/ollama':
+        specifier: ^1.2.6
+        version: 1.2.6(@langchain/core@1.1.31)
+      winston:
+        specifier: ^3.19.0
+        version: 3.19.0
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
+    devDependencies:
+      '@types/node':
+        specifier: ^25.4.0
+        version: 25.4.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -2221,6 +2261,13 @@ packages:
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
     dev: true
 
+  /@types/striptags@3.1.1:
+    resolution: {integrity: sha512-t11pzegWB32MpVjCMXD0LoSxsUQESC7CInDtVoEmnPbLWA5hMRSLBa0U/xCOdj6zFQyHlLn0Qmp76kyp/KyfQw==}
+    deprecated: This is a stub types definition for striptags (https://github.com/ericnorris/striptags). striptags provides its own type definitions, so you don't need @types/striptags installed!
+    dependencies:
+      striptags: 3.2.0
+    dev: true
+
   /@types/superagent@8.1.9:
     resolution: {integrity: sha512-pTVjI73witn+9ILmoJdajHGW2jkSaOzhiFYF1Rd3EQ94kymLqB9PjD9ISg7WaALC7+dCHT0FGe9T2LktLq/3GQ==}
     dependencies:
@@ -3286,6 +3333,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /csv-parse@6.2.1:
+    resolution: {integrity: sha512-LRLMV+UCyfMokp8Wb411duBf1gaBKJfOfBWU9eHMJ+b+cJYZsNu3AFmjJf3+yPGd59Exz1TsMjaSFyxnYB9+IQ==}
+    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -6347,6 +6398,9 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
     dev: true
+
+  /striptags@3.2.0:
+    resolution: {integrity: sha512-g45ZOGzHDMe2bdYMdIvdAfCQkCTDMGBazSw1ypMowwGIee7ZQ5dU0rBJ8Jqgl+jAKIv4dbeE1jscZq9wid1Tkw==}
 
   /strtok3@10.3.5:
     resolution: {integrity: sha512-ki4hZQfh5rX0QDLLkOCj+h+CVNkqmp/CMf8v8kZpkNVK6jGQooMytqzLZYUVYIZcFZ6yDB70EfD8POcFXiF5oA==}
