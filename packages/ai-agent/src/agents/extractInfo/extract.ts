@@ -55,9 +55,9 @@ export const runExtraction = async (
     RunnableSequence.from([
       {
         optimizedQuery: async (input: { question: string }) => {
-          const transformed = await queryTemplate.invoke({ question: input.question });
-          const response = await llm.invoke(transformed);
-          return response.content as string;
+          const stringParser = new StringOutputParser();
+          const queryChain = queryTemplate.pipe(llm).pipe(stringParser);
+          return await queryChain.invoke({ question: input.question });
         },
         originalQuestion: (input: { question: string }) => input.question,
       },

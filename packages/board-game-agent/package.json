@@ -1,0 +1,30 @@
+{
+  "name": "@board-game-agent/core",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "start": "tsx src/index.ts",
+    "ingest": "tsx src/ingest.ts",
+    "cli": "tsx src/cli/index.ts"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.57.0",
+    "@langchain/community": "^1.1.22",
+    "@langchain/core": "^1.1.31",
+    "@langchain/ollama": "^1.2.6",
+    "chromadb": "^3.3.2",
+    "langchain": "^1.2.30",
+    "winston": "^3.19.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
