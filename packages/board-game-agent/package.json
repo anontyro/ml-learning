@@ -10,7 +10,8 @@
     "clean": "rm -rf dist",
     "start": "tsx src/index.ts",
     "ingest": "tsx src/ingest.ts",
-    "cli": "tsx src/cli/index.ts"
+    "cli": "tsx src/cli/index.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@repo/utils": "workspace:*",
@@ -26,8 +27,11 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^25.4.0",
     "@types/striptags": "^3.1.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
