@@ -75,9 +75,17 @@ const runIngestion = async () => {
 
   const vectorStore = defaultVectorStore();
 
-  await vectorStore.addDocuments(documents, {
-    ids: games.map((g) => g.id),
-  });
+  const BATCH_SIZE = 100;
+  for (let i = 0; i < documents.length; i += BATCH_SIZE) {
+    const batchDocs = documents.slice(i, i + BATCH_SIZE);
+    const batchIds = games.slice(i, i + BATCH_SIZE).map((g) => g.id);
+    await vectorStore.addDocuments(batchDocs, { ids: batchIds });
+    logger.info(
+      `Synced batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(
+        documents.length / BATCH_SIZE,
+      )} (${i + batchDocs.length}/${documents.length} documents)`,
+    );
+  }
 
   logger.info("💾 Documents synced to ChromaDB (New/Updated only).");
 
