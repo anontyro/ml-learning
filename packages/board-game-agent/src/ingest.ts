@@ -60,9 +60,16 @@ const runIngestion = async () => {
     });
   });
 
+  logger.debug(
+    `Created documents, sample page content from document`,
+    documents[0].pageContent,
+  );
+
   const vectorStore = defaultVectorStore();
 
   await vectorStore.addDocuments(documents);
+
+  logger.info("💾 Documents synced to ChromaDB (New/Updated only).");
 
   return vectorStore;
 };
