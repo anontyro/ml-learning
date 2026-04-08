@@ -66,22 +66,43 @@ export const BoardGameSchema = z.object({
 
 export type BoardGame = z.infer<typeof BoardGameSchema>;
 
-export const parseBoardGames = async () => {
+export interface ParseOptions {
+  /** Number of rows to skip from the start (default: 0) */
+  skip?: number;
+  /** Maximum number of rows to return (default: unlimited) */
+  limit?: number;
+}
+
+export const parseBoardGames = async (options?: ParseOptions) => {
   const pathToCSV = join(process.cwd(), "../../data/boardgames_enriched.csv");
 
-  const gamesList = await parseBoardGameCSV(pathToCSV);
+  const gamesList = await parseBoardGameCSV(pathToCSV, options);
 
   return gamesList;
 };
 
 export async function parseBoardGameCSV(
   filePath: string,
+  { skip = 0, limit }: ParseOptions = {},
 ): Promise<BoardGame[]> {
   const games: BoardGame[] = [];
+  let rowIndex = 0;
 
   const rowProcessor = new Transform({
     objectMode: true,
     transform(raw: Record<string, string>, _encoding, callback) {
+      const currentIndex = rowIndex++;
+
+      if (currentIndex < skip) {
+        callback();
+        return;
+      }
+
+      if (limit !== undefined && games.length >= limit) {
+        callback();
+        return;
+      }
+
       const result = BoardGameSchema.safeParse(raw);
       if (!result.success) {
         callback(

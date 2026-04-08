@@ -71,12 +71,12 @@ Every production AI project starts here. Understanding how a monorepo package is
 
 ### Steps
 
-- [ ] Verify `packages/board-game-agent/` exists with `package.json`, `tsconfig.json`, and `src/index.ts`
-- [ ] Run `pnpm install` from the package root — confirm no errors
-- [ ] Run `pnpm run start` — confirm `hello agent` prints
-- [ ] Run `pnpm run build` — confirm `dist/` is generated with no TypeScript errors
-- [ ] Review `tsconfig.json`: note `target: ES2022`, `module: commonjs`, `strict: true`
-- [ ] Review `package.json` scripts: understand the difference between `tsx` (direct run) and `tsc` (compiled output)
+- [x] Verify `packages/board-game-agent/` exists with `package.json`, `tsconfig.json`, and `src/index.ts`
+- [x] Run `pnpm install` from the package root — confirm no errors
+- [x] Run `pnpm run start` — confirm `hello agent` prints
+- [x] Run `pnpm run build` — confirm `dist/` is generated with no TypeScript errors
+- [x] Review `tsconfig.json`: note `target: ES2022`, `module: commonjs`, `strict: true`
+- [x] Review `package.json` scripts: understand the difference between `tsx` (direct run) and `tsc` (compiled output)
 
 ### Reference
 
@@ -100,7 +100,7 @@ The distinction between **what you embed** (the text used for similarity search)
 
 ### Steps
 
-- [ ] Add `csv-parse` to your dependencies: `pnpm add csv-parse`
+- [x] Add `csv-parse` to your dependencies: `pnpm add csv-parse`
 - [ ] Add `striptags` to strip HTML from descriptions: `pnpm add striptags && pnpm add -D @types/striptags`
 - [ ] Create `src/ingest.ts`
 - [ ] Read the CSV using `csv-parse`'s streaming API (avoids loading 76 MB into memory at once)
