@@ -17,11 +17,16 @@ const generateHash = (content: string) => {
 
 const readCsvFile = async () => {
   logger.info(`Loading CSV file...`);
-  const gameList = await parseBoardGames({ limit: 50 });
+  const { games, failures } = await parseBoardGames({ limit: 10000 });
 
-  logger.debug(`Extracted ${gameList.length} rows in the CSV`);
+  logger.debug(`Extracted ${games.length} rows from the CSV`);
+  if (failures.length > 0) {
+    logger.warn(`Skipped ${failures.length} unparseable rows`, {
+      failedIds: failures.map((f) => f.id),
+    });
+  }
 
-  return gameList;
+  return games;
 };
 
 const runIngestion = async () => {
@@ -31,11 +36,14 @@ const runIngestion = async () => {
 
   const documents = games.map((g) => {
     const cleanDescription = striptags(g.description);
-    const pageContent = `
-    ${g.name}.
-    ${g.categories.join(",")}.
-    ${g.mechanics.join(",")}.
-    ${cleanDescription}`;
+    const pageContent = [
+      g.name,
+      g.categories.join(","),
+      g.mechanics.join(","),
+      cleanDescription,
+    ]
+      .filter(Boolean)
+      .join(". ");
 
     const contentHash = generateHash(pageContent);
 
@@ -67,7 +75,9 @@ const runIngestion = async () => {
 
   const vectorStore = defaultVectorStore();
 
-  await vectorStore.addDocuments(documents);
+  await vectorStore.addDocuments(documents, {
+    ids: games.map((g) => g.id),
+  });
 
   logger.info("💾 Documents synced to ChromaDB (New/Updated only).");
 

@@ -56,10 +56,10 @@ export const BoardGameSchema = z.object({
   thematic_rank: nullableInt,
   wargames_rank: nullableInt,
   description: z.string(),
-  minplayers: requiredInt,
-  maxplayers: requiredInt,
-  playingtime: requiredInt,
-  minage: requiredInt,
+  minplayers: nullableInt,
+  maxplayers: nullableInt,
+  playingtime: nullableInt,
+  minage: nullableInt,
   categories: semicolonList,
   mechanics: semicolonList,
 });
@@ -73,19 +73,22 @@ export interface ParseOptions {
   limit?: number;
 }
 
-export const parseBoardGames = async (options?: ParseOptions) => {
+export interface ParseResult {
+  games: BoardGame[];
+  failures: Array<{ id: string; reason: string }>;
+}
+
+export const parseBoardGames = async (options?: ParseOptions): Promise<ParseResult> => {
   const pathToCSV = join(process.cwd(), "../../data/boardgames_enriched.csv");
-
-  const gamesList = await parseBoardGameCSV(pathToCSV, options);
-
-  return gamesList;
+  return parseBoardGameCSV(pathToCSV, options);
 };
 
 export async function parseBoardGameCSV(
   filePath: string,
   { skip = 0, limit }: ParseOptions = {},
-): Promise<BoardGame[]> {
+): Promise<ParseResult> {
   const games: BoardGame[] = [];
+  const failures: Array<{ id: string; reason: string }> = [];
   let rowIndex = 0;
 
   const rowProcessor = new Transform({
@@ -105,13 +108,13 @@ export async function parseBoardGameCSV(
 
       const result = BoardGameSchema.safeParse(raw);
       if (!result.success) {
-        callback(
-          new Error(
-            `Invalid row (id=${raw.id}): ${result.error.issues
-              .map((i) => `${i.path.join(".")}: ${i.message}`)
-              .join(", ")}`,
-          ),
-        );
+        failures.push({
+          id: raw.id || "(unknown)",
+          reason: result.error.issues
+            .map((i) => `${i.path.join(".")}: ${i.message}`)
+            .join(", "),
+        });
+        callback();
         return;
       }
       games.push(result.data);
@@ -132,5 +135,5 @@ export async function parseBoardGameCSV(
     rowProcessor,
   );
 
-  return games;
+  return { games, failures };
 }
