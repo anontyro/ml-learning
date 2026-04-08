@@ -35,7 +35,7 @@ const runIngestion = async () => {
   const games = await readCsvFile();
 
   const documents = games.map((g) => {
-    const cleanDescription = striptags(g.description);
+    const cleanDescription = striptags(g.description).slice(0, 3000);
     const pageContent = [
       g.name,
       g.categories.join(","),
