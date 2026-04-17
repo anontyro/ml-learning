@@ -10,7 +10,7 @@ import {
 import {
   JsonOutputParser,
   StringOutputParser,
-} from "@langchain/core/dist/output_parsers";
+} from "@langchain/core/output_parsers";
 
 const BoardGameResultSchema = z.object({
   id: z.string(),

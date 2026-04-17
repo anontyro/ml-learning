@@ -11,6 +11,7 @@
     "start": "tsx src/index.ts",
     "ingest": "tsx src/ingest.ts",
     "cli": "tsx src/cli/index.ts",
+    "query": "tsx src/agents/query/index.ts",
     "test": "jest"
   },
   "dependencies": {

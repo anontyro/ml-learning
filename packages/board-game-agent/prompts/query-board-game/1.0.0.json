@@ -73,7 +73,7 @@
     "- For the 'why' field write one short sentence explaining specifically why this game matches the question.",
     "- Split 'categories' and 'mechanics' back into arrays (they are stored as semicolon-separated strings in the records).",
     "- Output ONLY the JSON object, nothing else — no markdown, no code blocks, no backticks, no explanations.",
-    "- If no records are relevant, return: { \"games\": [] }",
+    "- If no records are relevant, return: {{ \"games\": [] }}",
     "- Ensure the JSON is complete and valid (all brackets closed, proper commas).",
     "",
     "Output format (must be valid JSON):",
