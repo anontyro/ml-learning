@@ -12,7 +12,7 @@ const main = async () => {
   const dataExtracted = await runPromptTransformation(TEST_QUESTION);
 
   logger.info("Data Extracted now on to the fun part...");
-  const markdown = await runGameWriter(dataExtracted);
+  const markdown = await runGameWriter(dataExtracted, TEST_QUESTION);
 
   // display the results
   marked.use(markedTerminal());
