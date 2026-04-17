@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "author": "alex"
+  },
+  "name": "query-board-game",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "games": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "yearpublished": { "type": "integer" },
+            "rank": { "type": "integer" },
+            "average": { "type": "number" },
+            "bayesaverage": { "type": "number" },
+            "usersrated": { "type": "integer" },
+            "minplayers": { "type": ["integer", "null"] },
+            "maxplayers": { "type": ["integer", "null"] },
+            "playingtime": { "type": ["integer", "null"] },
+            "minage": { "type": ["integer", "null"] },
+            "is_expansion": { "type": "boolean" },
+            "categories": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "mechanics": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "description": { "type": "string" },
+            "why": { "type": "string" }
+          },
+          "required": [
+            "id",
+            "name",
+            "yearpublished",
+            "rank",
+            "average",
+            "bayesaverage",
+            "usersrated",
+            "minplayers",
+            "maxplayers",
+            "playingtime",
+            "minage",
+            "is_expansion",
+            "categories",
+            "mechanics",
+            "description",
+            "why"
+          ]
+        }
+      }
+    },
+    "required": ["games"]
+  },
+  "version": "1.0.0",
+  "template_lines": [
+    "You are a board game recommendation assistant.",
+    "You have been given a list of board game records retrieved from a semantic search. Your job is to select the most relevant games for the user's question and return them as structured JSON.",
+    "",
+    "User question: {question}",
+    "",
+    "Retrieved board game records:",
+    "{context}",
+    "",
+    "Instructions:",
+    "- Select only the games that genuinely match the user's question. Do not include weak or irrelevant matches.",
+    "- For each selected game populate every field from the record. Do not invent or estimate values — use only what is in the record.",
+    "- For the 'why' field write one short sentence explaining specifically why this game matches the question.",
+    "- Split 'categories' and 'mechanics' back into arrays (they are stored as semicolon-separated strings in the records).",
+    "- Output ONLY the JSON object, nothing else — no markdown, no code blocks, no backticks, no explanations.",
+    "- If no records are relevant, return: { \"games\": [] }",
+    "- Ensure the JSON is complete and valid (all brackets closed, proper commas).",
+    "",
+    "Output format (must be valid JSON):",
+    "{{",
+    "  \"games\": [",
+    "    {{",
+    "      \"id\": \"string\",",
+    "      \"name\": \"string\",",
+    "      \"yearpublished\": 0,",
+    "      \"rank\": 0,",
+    "      \"average\": 0.0,",
+    "      \"bayesaverage\": 0.0,",
+    "      \"usersrated\": 0,",
+    "      \"minplayers\": 0,",
+    "      \"maxplayers\": 0,",
+    "      \"playingtime\": 0,",
+    "      \"minage\": 0,",
+    "      \"is_expansion\": false,",
+    "      \"categories\": [\"string\"],",
+    "      \"mechanics\": [\"string\"],",
+    "      \"description\": \"string\",",
+    "      \"why\": \"string\"",
+    "    }}",
+    "  ]",
+    "}}"
+  ]
+}

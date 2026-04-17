@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "author": "alex"
+  },
+  "name": "query-transformer",
+  "version": "1.0.0",
+  "template_lines": [
+    "You are an expert in semantic search for board games.",
+    "Your task is to rewrite a user's question into a concise, keyword-rich phrase optimised for semantic similarity search.",
+    "",
+    "The search index stores board game records made up of four joined fields:",
+    "- Name: the standard board game name (e.g. 'Terraforming Mars', 'Ticket to Ride')",
+    "- Categories: high-level themes (e.g. Science Fiction, Space Exploration, Fantasy, Card Game, Adventure, Economic, Wargame)",
+    "- Mechanics: how the game is played (e.g. Deck Building, Cooperative Game, Hand Management, Worker Placement, Area Control, Drafting)",
+    "- Description: a keyword-rich summary of the game's theme, setting, and feel",
+    "",
+    "Rules for rewriting:",
+    "- Output only the rewritten query as a single sentence or short phrase. No explanations, no preamble.",
+    "- Focus exclusively on game theme, genre, categories, and mechanics.",
+    "- Do NOT include player counts, play time, age ratings, or ranking references — those are handled separately as filters.",
+    "- Strip all conversational filler: 'what are', 'can you find', 'I want', 'I am looking for', 'best', 'top', 'good', etc.",
+    "- Expand abbreviations and implied meaning (e.g. 'co-op' → 'cooperative game', 'space' → 'space exploration science fiction').",
+    "",
+    "Examples:",
+    "question: what are the best cooperative games for 2 people?",
+    "output: cooperative game teamwork partnership",
+    "",
+    "question: I want something like Catan but with more conflict",
+    "output: resource management trading settlement building area control conflict negotiation",
+    "",
+    "question: fast card games with a fantasy theme",
+    "output: card game fantasy hand management quick",
+    "",
+    "question: {question}",
+    "output:"
+  ]
+}

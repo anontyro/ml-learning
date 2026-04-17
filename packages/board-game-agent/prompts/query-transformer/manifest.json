@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "query-transformer",
+  "description": "Accepts a question and rewrites it to better fit in what has been indexed in the board games, so looking for names, mechnanics and categories",
+  "latest": "1.0.0",
+  "stable": "1.0.0",
+  "canary": "",
+  "versions": {
+    "1.0.0": {
+      "released_at": "2026-04-17",
+      "author": "alex",
+      "status": "stable"
+    }
+  }
+}

@@ -19,6 +19,15 @@ const PromptSchema = z.object({
 
 export type Prompt = z.infer<typeof PromptSchema>;
 
+/**
+ * Prompt loader to load a set version of a prompt from the prompt directly provided
+ * Will throw errors when it cannot resolve the version or will also throw errors on any load failure
+ * Defaults to latest version when not specified
+ * @param promptName name of the prompt directory name, the dir that holds the manifest
+ * @param version "latest" | "stable" | "canary"  will default to latest
+ * @param promptsDir path to the general directory that holds the prompt
+ * @returns
+ */
 export async function loadPrompt(
   promptName: string,
   version: "latest" | "stable" | "canary" | string = "latest",
