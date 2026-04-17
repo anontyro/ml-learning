@@ -10,6 +10,8 @@ const main = async () => {
   // run the prompt extractor
   const dataExtracted = await runPromptTransformation(TEST_QUESTION);
 
+  logger.info("Data Extracted now on to the fun part...");
+
   // pass the results to get the question answered
 
   // return the result as a markdown display

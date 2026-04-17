@@ -19,7 +19,7 @@ const BoardGameResultSchema = z.object({
   rank: z.number().int(),
   average: z.number(),
   bayesaverage: z.number(),
-  usersrated: z.number().int(),
+  usersrated: z.number().int().nullable().optional(),
   minplayers: z.number().int().nullable(),
   maxplayers: z.number().int().nullable(),
   playingtime: z.number().int().nullable(),
@@ -72,7 +72,7 @@ export const runPromptTransformation = async (
       {
         optimizedQuery: async (input: { question: string }) => {
           const queryChain = queryTemplate.pipe(llm).pipe(stringParser);
-          return await queryChain.invoke({ quest: input.question });
+          return await queryChain.invoke({ question: input.question });
         },
         originalQuestion: (input: { question: string }) => input.question,
       },
@@ -80,7 +80,27 @@ export const runPromptTransformation = async (
         context: async (input: { optimizedQuery: string }) => {
           const docs = await retriever.invoke(input.optimizedQuery);
 
-          return docs.map((d) => d.pageContent).join(".");
+          return docs
+            .map((d) => {
+              const m = d.metadata;
+              return [
+                `ID: ${d.id}`,
+                `Name: ${m.name}`,
+                `Year Published: ${m.yearpublished}`,
+                `Rank: ${m.rank}`,
+                `Average Rating: ${m.average}`,
+                `Bayes Average: ${m.bayesaverage}`,
+                `Min Players: ${m.minplayers ?? "N/A"}`,
+                `Max Players: ${m.maxplayers ?? "N/A"}`,
+                `Playing Time: ${m.playingtime ?? "N/A"} minutes`,
+                `Min Age: ${m.minage ?? "N/A"}`,
+                `Is Expansion: ${m.is_expansion}`,
+                `Categories: ${m.categories}`,
+                `Mechanics: ${m.mechanics}`,
+                `Description: ${d.pageContent}`,
+              ].join("\n");
+            })
+            .join("\n\n---\n\n");
         },
         question: (input: { originalQuestion: string }) =>
           input.originalQuestion,
@@ -97,7 +117,13 @@ export const runPromptTransformation = async (
     question: userQuestion,
   });
 
+  logger.debug("\n📋 RAW LLM OUTPUT:\n");
+  logger.debug(JSON.stringify(result, null, 2));
+
   const validatedResult = QueryBoardGameOutputSchema.parse(result);
+
+  logger.info("\n✅ EXTRACTED DATA:\n");
+  logger.info(JSON.stringify(validatedResult, null, 2));
 
   return validatedResult;
 };
