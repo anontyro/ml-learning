@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "game-markdown-writer",
+  "description": "Accepts JSON QueryBoardGameOutputSchema and returns this as a markdown string",
+  "latest": "1.0.0",
+  "stable": "1.0.0",
+  "canary": "",
+  "versions": {
+    "1.0.0": {
+      "released_at": "2026-04-17",
+      "author": "alex",
+      "status": "stable"
+    }
+  }
+}
