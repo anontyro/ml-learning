@@ -15,14 +15,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "@repo/utils": "workspace:*",
     "@dotenvx/dotenvx": "^1.57.0",
     "@langchain/community": "^1.1.22",
     "@langchain/core": "^1.1.31",
     "@langchain/ollama": "^1.2.6",
+    "@repo/utils": "workspace:*",
     "chromadb": "^3.3.2",
     "csv-parse": "^6.2.1",
     "langchain": "^1.2.30",
+    "marked": "^18.0.1",
+    "marked-terminal": "^7.3.0",
     "striptags": "^3.2.0",
     "winston": "^3.19.0",
     "zod": "^4.3.6"

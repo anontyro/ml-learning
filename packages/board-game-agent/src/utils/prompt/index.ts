@@ -15,6 +15,8 @@ const PROMPTS_DIR = getPromptDir();
 const QUERY_TRANSFORM_PROMPT = "query-transformer";
 const QUERY_BOARD_GAME = "query-board-game";
 
+const GAME_MARKDOWN_WRITER = "game-markdown-writer";
+
 /**
  * Loads the standard transformer prompt for general transformation of the user input
  * This will strip out unrequired words and provide a richer keyword input for the model
@@ -36,4 +38,15 @@ export const getQueryBoardGame = async (
   version: "latest" | "stable" | "canary" | string = "latest",
 ): Promise<Prompt> => {
   return loadPrompt(QUERY_BOARD_GAME, version, PROMPTS_DIR);
+};
+
+/**
+ * General purpose writer for accepting in JSON in the format of BoardGameResultSchema[] and returning a markdown response string
+ * @param version
+ * @returns
+ */
+export const getGameMarkdownWriter = async (
+  version: "latest" | "stable" | "canary" | string = "latest",
+): Promise<Prompt> => {
+  return loadPrompt(GAME_MARKDOWN_WRITER, version, PROMPTS_DIR);
 };

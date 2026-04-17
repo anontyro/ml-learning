@@ -122,8 +122,8 @@ export const runPromptTransformation = async (
 
   const validatedResult = QueryBoardGameOutputSchema.parse(result);
 
-  logger.info("\n✅ EXTRACTED DATA:\n");
-  logger.info(JSON.stringify(validatedResult, null, 2));
+  logger.debug("\n✅ EXTRACTED DATA:\n");
+  logger.debug(JSON.stringify(validatedResult, null, 2));
 
   return validatedResult;
 };

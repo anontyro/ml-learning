@@ -1,7 +1,8 @@
-import * as fs from "fs";
-import * as path from "path";
 import { logger } from "@repo/utils";
 import { runPromptTransformation } from "./promptTransformation";
+import { runGameWriter } from "../utils/markdownWriter/gameWriter";
+import { marked } from "marked";
+import { markedTerminal } from "marked-terminal";
 
 const TEST_QUESTION = `I want something like Catan but with more conflict`;
 
@@ -11,10 +12,14 @@ const main = async () => {
   const dataExtracted = await runPromptTransformation(TEST_QUESTION);
 
   logger.info("Data Extracted now on to the fun part...");
+  const markdown = await runGameWriter(dataExtracted);
 
-  // pass the results to get the question answered
+  // display the results
+  marked.use(markedTerminal());
 
-  // return the result as a markdown display
+  const output = await marked.parse(markdown);
+
+  process.stdout.write(output);
 };
 
 main();
