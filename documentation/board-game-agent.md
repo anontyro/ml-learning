@@ -101,12 +101,12 @@ The distinction between **what you embed** (the text used for similarity search)
 ### Steps
 
 - [x] Add `csv-parse` to your dependencies: `pnpm add csv-parse`
-- [ ] Add `striptags` to strip HTML from descriptions: `pnpm add striptags && pnpm add -D @types/striptags`
-- [ ] Create `src/ingest.ts`
-- [ ] Read the CSV using `csv-parse`'s streaming API (avoids loading 76 MB into memory at once)
-- [ ] For each row, construct an **embed string**: `"${name}. ${categories}. ${mechanics}. ${strippedDescription}"`
-- [ ] Store the raw structured data as **metadata** on the ChromaDB document (rank, rating, players, playtime, etc.)
-- [ ] Add `--limit <n>` support via `process.argv` — default to `500` for development
+- [x] Add `striptags` to strip HTML from descriptions: `pnpm add striptags && pnpm add -D @types/striptags`
+- [x] Create `src/ingest.ts`
+- [x] Read the CSV using `csv-parse`'s streaming API (avoids loading 76 MB into memory at once)
+- [x] For each row, construct an **embed string**: `"${name}. ${categories}. ${mechanics}. ${strippedDescription}"`
+- [x] Store the raw structured data as **metadata** on the ChromaDB document (rank, rating, players, playtime, etc.)
+- [ ] Add `--limit <n>` support via `process.argv` — default to `500` for development (currently hardcoded as `limit: 10000` in `ingest.ts`)
 - [ ] Test: run `pnpm run ingest -- --limit 100` and verify 100 documents appear in ChromaDB
 - [ ] Scale up: run without `--limit` to ingest the full dataset (this will take several minutes)
 
@@ -141,13 +141,13 @@ This is the core RAG loop — the same pattern used in `ai-agent`'s `generate.ts
 
 ### Steps
 
-- [ ] Create `src/agents/query/query.ts`
-- [ ] Import `createChatModel`, `createEmbeddings`, `createVectorStore` from your `modelSetup.ts` (copy the pattern from ai-agent)
-- [ ] Create a retriever with `vectorStore.asRetriever({ k: 5 })`
-- [ ] Write a prompt template that includes `{context}` (the retrieved game data) and `{question}`
-- [ ] Build a `RunnableSequence`: retrieve context → format prompt → LLM → StringOutputParser
-- [ ] Create `src/agents/query/index.ts` as a runnable test script
-- [ ] Test with a hard-coded query: `"What are good 2-player strategy games under 90 minutes?"`
+- [x] Create `src/agents/query/query.ts` (implemented as `promptTransformation.ts` with a two-stage query-transform + retrieval chain)
+- [x] Import `createChatModel`, `createEmbeddings`, `createVectorStore` from your `modelSetup.ts` (copy the pattern from ai-agent)
+- [x] Create a retriever with `vectorStore.asRetriever({ k: 5 })`
+- [x] Write a prompt template that includes `{context}` (the retrieved game data) and `{question}`
+- [x] Build a `RunnableSequence`: retrieve context → format prompt → LLM → StringOutputParser
+- [x] Create `src/agents/query/index.ts` as a runnable test script
+- [x] Test with a hard-coded query: `"I want something like Catan but with more conflict"`
 - [ ] Inspect the raw ChromaDB results before the LLM call — confirm relevant games are being retrieved
 
 ### Reference
@@ -172,8 +172,8 @@ This is the first genuinely new pattern in this project — `ai-agent` has no in
 
 ### Steps
 
-- [ ] Add `chalk` for terminal colour: `pnpm add chalk`
-- [ ] Create `src/cli/index.ts` with a `readline.createInterface` loop
+- [ ] Add `chalk` for terminal colour: `pnpm add chalk` (not yet added)
+- [ ] Create `src/cli/index.ts` with a `readline.createInterface` loop (directory exists but file not created)
 - [ ] Print a welcome banner on start (package name, model, collection name, commands)
 - [ ] On each line of input, check if it starts with `/`:
   - `/help` — print available commands
@@ -433,9 +433,9 @@ Wrap the CLI agent in a NestJS endpoint (same pattern as `apps/server`) so the a
 
 Use this as a quick reference for overall progress:
 
-- [ ] Phase 0: Package boots and compiles
-- [ ] Phase 1: CSV ingested into ChromaDB with `--limit` flag
-- [ ] Phase 2: Single-turn RAG Q&A working
+- [x] Phase 0: Package boots and compiles
+- [ ] Phase 1: CSV ingested into ChromaDB with `--limit` flag (ingestion works; `--limit` via argv not wired)
+- [x] Phase 2: Single-turn RAG Q&A working (query-transform + retrieval + markdown writer chain)
 - [ ] Phase 3: Interactive readline CLI with slash commands
 - [ ] Phase 4: In-session memory with token counting and overflow handling
 - [ ] Phase 5: Streaming LLM responses to terminal
