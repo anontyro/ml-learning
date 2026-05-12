@@ -21,6 +21,7 @@ rl.on("line", async (input) => {
   } else {
     await handleQuery(trimmed);
   }
+  rl.prompt();
 }).on("close", () => {
   console.log(chalk.cyan("See you later"));
   process.exit(0);
