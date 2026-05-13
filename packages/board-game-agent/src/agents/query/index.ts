@@ -3,8 +3,10 @@ import { runPromptTransformation } from "./promptTransformation";
 import { runGameWriter } from "../utils/markdownWriter/gameWriter";
 import { marked } from "marked";
 import { markedTerminal } from "marked-terminal";
+import MessageHistory from "../../utils/memory/MessageHistory";
 
 const TEST_QUESTION = `I want something like Catan but with more conflict`;
+const messageHistoryInstance = MessageHistory.getInstance();
 
 /**
  * Function to transform the prompt to a much richer version
@@ -15,7 +17,11 @@ const TEST_QUESTION = `I want something like Catan but with more conflict`;
  * @returns string markdown format
  */
 export const askQueryReturnMarkdown = async (userQuestion: string) => {
-  const dataExtracted = await runPromptTransformation(userQuestion);
+  const userHistory = messageHistoryInstance.getHistory();
+  const dataExtracted = await runPromptTransformation(
+    userQuestion,
+    userHistory,
+  );
 
   logger.info("Data Extracted now on to the fun part...");
   const markdown = await runGameWriter(dataExtracted, userQuestion);

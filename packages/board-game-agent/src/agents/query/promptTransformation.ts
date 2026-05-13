@@ -40,6 +40,7 @@ export type QueryBoardGameOutput = z.infer<typeof QueryBoardGameOutputSchema>;
 
 export const runPromptTransformation = async (
   userQuestion: string,
+  userHistory: string = "",
   promptVersion?: "latest",
 ): Promise<QueryBoardGameOutput> => {
   const vectorStore = defaultVectorStore();
@@ -70,11 +71,12 @@ export const runPromptTransformation = async (
   const chain = RunnableSequence.from([
     RunnableSequence.from([
       {
-        optimizedQuery: async (input: { question: string }) => {
+        optimizedQuery: async (input: { question: string; history: string }) => {
           const queryChain = queryTemplate.pipe(llm).pipe(stringParser);
           return await queryChain.invoke({ question: input.question });
         },
         originalQuestion: (input: { question: string }) => input.question,
+        history: (input: { history: string }) => input.history,
       },
       {
         context: async (input: { optimizedQuery: string }) => {
@@ -104,6 +106,7 @@ export const runPromptTransformation = async (
         },
         question: (input: { originalQuestion: string }) =>
           input.originalQuestion,
+        history: (input: { history: string }) => input.history,
       },
     ]),
     prompt,
@@ -115,6 +118,7 @@ export const runPromptTransformation = async (
 
   const result = await chain.invoke({
     question: userQuestion,
+    history: userHistory,
   });
 
   logger.debug("\n📋 RAW LLM OUTPUT:\n");

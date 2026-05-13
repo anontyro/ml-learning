@@ -24,11 +24,19 @@ class MessageHistory {
 
   public push(userData: DataStored) {
     this.data.push(userData);
-    this.compact();
+    this.autoCompact();
   }
 
   public get() {
     return [...this.data];
+  }
+
+  public getHistory(): string {
+    return this.data
+      .map((x) =>
+        x.role === "user" ? `User: ${x.content}` : `Assistant: ${x.content}`,
+      )
+      .join("\n");
   }
 
   public clear() {
@@ -50,7 +58,17 @@ class MessageHistory {
 
   public seralize() {}
 
-  private compact() {
+  private autoCompact() {
+    const percentUsed = this.tokenPercentageUsage();
+
+    if (percentUsed < 95) {
+      return;
+    }
+
+    this.compact();
+  }
+
+  public compact() {
     while (this.tokenCount() > this.tokenLimit) {
       const oldestMessage = this.data.shift();
 
